@@ -4,8 +4,8 @@
   "description": "",
   "main": "ocr.js",
   "scripts": {
-    "start": "./node_modules/.bin/netlify-lambda serve functions",
-    "build": "./node_modules/.bin/netlify-lambda build functions"
+    "start": "./node_modules/.bin/netlify-lambda serve views",
+    "build": "./node_modules/.bin/netlify-lambda build views"
   },
   "keywords": [],
   "author": "",
