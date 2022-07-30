@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h1,form{
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #e78146;
+        }
+        button {
+            background-color: #055b80;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR WEB APP</title>
+</head>
+<body>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li style="float:right"><a class="active" href="#about">About</a></li>
+    </ul>
+    <h1>Welcome To OCR Image To Text</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="myfile">Select a Image file: </label><input type="file" name="avatar" />
+        <button type="submit">Convert</button>
+        <p><label for="context">Converted Text:</label></p>
+        <textarea id="context" name="w3review" rows="10" cols="50">
+
+        </textarea>
+    </form>
+</body>
+</html>

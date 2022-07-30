@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>OCR WEB APP</title>
+</head>
+<body>
+    <ul>
+        <li><a href="/.netlify/functions/ocr/">Home</a></li>
+        <li style="float:right"><a class="active" href="/about">About</a></li>
+    </ul>
+    <h1 class="poppins">Phoenix OCR</h1>
+    <form action="/.netlify/functions/ocr/upload" method="POST" id="file" enctype="multipart/form-data">
+        <label for="myfile">Select a Image file: </label><input type="file" name="avatar" />
+        <button type="submit">Convert</button>
+    </form>
+
+    <div class="center">
+        <div>
+            <p><label for="context">Uploaded Image:</label></p>
+            <img src="<%= imgPath %>" class="image" alt="" srcset="">
+        </div>
+        <div>
+            <p><label for="context">Converted Text:</label></p>
+            <div class="main-content">
+                <div class="text-editor-header">
+                    <button type="button" class="btn" data-element="bold">
+                        <i class="fa fa-bold"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="italic">
+                        <i class="fa fa-italic"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="underline">
+                        <i class="fa fa-underline"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="insertUnorderedList">
+                        <i class="fa fa-list-ul"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="insertOrderedList">
+                        <i class="fa fa-list-ol"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="createLink">
+                        <i class="fa fa-link"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="justifyLeft">
+                        <i class="fa fa-align-left"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="justifyRight">
+                        <i class="fa fa-align-right"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="justifyCenter">
+                        <i class="fa fa-align-center"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="justifyFull">
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="insertImage">
+                        <i class="fa fa-image"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="undo">
+                        <i class="fa fa-undo"></i>
+                    </button>
+                    <button type="button" class="btn" data-element="redo">
+                        <i class="fa fa-redo"></i>
+                    </button>
+                </div>
+        
+                <div class="content" id="context" contenteditable="true">
+                    <%= title %>
+                </div>
+            </div>
+            <!-- <textarea id="context" name="w3review" rows="10" cols="50" value="">
+                <%= title %>
+            </textarea> -->
+            <div class="top">
+                <button onclick="getTxt()"><a id="txt">Save as .txt</a></button>
+                <button onclick="getDocx()"><a id="docx">Save as .docx</a></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const downloadTxtFile = (type,text,fileName) => {
+            const element = document.getElementById(type);
+            const file = new Blob([text], {
+               type: "text/plain",
+            });
+            element.href = URL.createObjectURL(file);
+            console.log(element.href);
+            element.download = fileName;
+            element.click();
+        };
+
+        const textContent = document.getElementById("context").textContent;
+
+        function getTxt(){
+             downloadTxtFile("txt",textContent,"demo.txt"); 
+        }
+
+        function getDocx(){
+            downloadTxtFile("docx",textContent,"demo.docx");
+        }
+
+    </script>
+
+        <script>
+
+            const elements = document.querySelectorAll('.btn');
+
+            elements.forEach(element => {
+                element.addEventListener('click',() => {
+                    let command = element.dataset['element'];
+
+                    if(command == 'createLink' || command == 'insertIamge'){
+                        let url = prompt('Enter the link here: ','https://');
+                        document.execCommand(command,false,url);
+                    }
+                    else{
+                        document.execCommand(command,false,null);
+                    }
+                })
+            })
+        </script>
+    
+</body>
+</html>
