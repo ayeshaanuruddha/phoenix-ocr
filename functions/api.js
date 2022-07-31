@@ -29,7 +29,7 @@ const router = express.Router();
 //Routes
 
 router.get('/',(req,res) => {
-    res.render('./views/index', {
+    res.render('views/index', {
         title : ' ',
         imgPath : ' '
     });
